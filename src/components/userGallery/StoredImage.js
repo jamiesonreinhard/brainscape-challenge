@@ -1,3 +1,5 @@
+import remove from "../../assets/delete.svg";
+
 const StoredImage = ({ image, removeImage }) => {
 
   return (
@@ -8,9 +10,11 @@ const StoredImage = ({ image, removeImage }) => {
         className="absolute top-0 left-0 w-full h-full object-cover"
       />
       <button
-        className="absolute top-0 left-0 w-full h-full z-[10] hidden group-hover:flex bg-opacity-90 bg-gray-700"
+        className="absolute top-0 left-0 w-full h-full z-[10] hidden group-hover:flex bg-opacity-80 bg-white items-center justify-center"
         onClick={() => removeImage(image)}
-      ></button>
+      >
+        <img src={remove} alt="trash icon" />
+      </button>
     </div>
   );
 };
