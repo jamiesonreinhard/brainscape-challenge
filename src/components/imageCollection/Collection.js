@@ -35,7 +35,10 @@ const Collection = ({ setShowDropZone }) => {
   }, []);
 
   return (
-    <div className="flex justify-between sm:justify-start items-start flex-wrap w-full gap-[8px] sm:gap-[16px]">
+    <div
+      className="h-1/2 sm:h-auto overflow-y-auto w-full sm:w-2/3 lg:w-fit
+      flex justify-between sm:justify-start items-start flex-wrap gap-[8px] sm:gap-[16px]"
+    >
       {loadingImages && <Spinner />}
       {!loadingImages &&
         images.map((image, index) => (
