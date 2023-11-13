@@ -6,7 +6,7 @@ const App = () => {
   const [showDropZone, setShowDropZone] = useState(false);
 
   return (
-    <div className="w-[90%] h-screen sm:h-auto xl:max-w-[1200px] mx-auto py-[24px] sm:py-[60px] flex flex-col relative">
+    <div className="w-[90%] h-[90vh] sm:h-auto xl:max-w-[1200px] mx-auto py-[24px] sm:py-[60px] flex flex-col relative">
       <header className="flex flex-col gap-[8px] mb-[40px]">
         <h2 className="text-xl font-bold">Brainscape App Coding Exercise</h2>
         <p className="text-sm">Photo Album Generator by Jamieson Reinhard</p>
