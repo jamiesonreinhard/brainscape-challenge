@@ -12,13 +12,11 @@ const App = () => {
       if (window.innerWidth < mobileBreakpoint) {
         setAppHeight(window.innerHeight);
       } else {
-        // Reset to default for non-mobile screens
         setAppHeight('auto');
       }
     };
 
     window.addEventListener('resize', handleResize);
-    // Set the initial height
     handleResize();
 
     return () => window.removeEventListener('resize', handleResize);

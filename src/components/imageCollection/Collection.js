@@ -23,10 +23,11 @@ const Collection = ({ setShowDropZone }) => {
         const data = await response.json();
         setImages(data.photos);
         sessionStorage.setItem("cachedImages", JSON.stringify(data.photos));
+        setLoadingImages(false);
       } catch (error) {
         console.error("Fetch error:", error.message);
+        setLoadingImages(false);
       }
-      setLoadingImages(false);
     }
   };
 
@@ -36,16 +37,22 @@ const Collection = ({ setShowDropZone }) => {
 
   return (
     <div
-      className="h-1/2 sm:h-auto overflow-y-auto w-full sm:w-2/3 lg:w-fit
+      className="h-1/2 sm:h-auto overflow-y-auto sm:overflow-visible w-full sm:min-w-2/3
       flex justify-between sm:justify-start items-start flex-wrap gap-[8px] sm:gap-[16px]"
     >
-      {loadingImages && <Spinner />}
-      {!loadingImages &&
-        images.map((image, index) => (
-          <Suspense fallback={<Spinner />} key={index}>
-            <DraggableImage image={image} setShowDropZone={setShowDropZone} />
-          </Suspense>
-        ))}
+      {loadingImages ? (
+        <div className="w-full">
+          <Spinner />
+        </div>
+      ) : (
+        <>
+          {images.map((image, index) => (
+            <Suspense fallback={<Spinner />} key={index}>
+              <DraggableImage image={image} setShowDropZone={setShowDropZone} />
+            </Suspense>
+          ))}
+        </>
+      )}
     </div>
   );
 };
