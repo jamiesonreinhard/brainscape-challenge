@@ -1,26 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import DraggableImage from "./DraggableImage";
+import Spinner from "../utility/Spinner";
 
-const Collection = ({setShowDropZone}) => {
+const Collection = ({ setShowDropZone }) => {
   const [images, setImages] = useState([]);
   const [loadingImages, setLoadingImages] = useState(false);
 
   const url = "https://api.slingacademy.com/v1/sample-data/photos?limit=100";
 
-  const getImages = () => {
-    fetch(url)
-      .then((response) => {
+  const getImages = async () => {
+    setLoadingImages(true);
+    const cachedImages = sessionStorage.getItem("cachedImages");
+    if (cachedImages) {
+      setImages(JSON.parse(cachedImages));
+      setLoadingImages(false);
+    } else {
+      try {
+        const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
-      })
-      .then((data) => {
+        const data = await response.json();
         setImages(data.photos);
-      })
-      .catch((error) => {
+        sessionStorage.setItem("cachedImages", JSON.stringify(data.photos));
+      } catch (error) {
         console.error("Fetch error:", error.message);
-      });
+      }
+      setLoadingImages(false);
+    }
   };
 
   useEffect(() => {
@@ -28,13 +35,14 @@ const Collection = ({setShowDropZone}) => {
   }, []);
 
   return (
-    <div className="flex items-start flex-wrap w-full gap-[16px]">
-      {/* map over images from api */}
-      {images.map((image, index) => (
-        <DraggableImage key={index} image={image} setShowDropZone={setShowDropZone} />
-      ))}
-
-      
+    <div className="flex justify-start items-start flex-wrap w-full gap-[8px] sm:gap-[16px]">
+      {loadingImages && <Spinner />}
+      {!loadingImages &&
+        images.map((image, index) => (
+          <Suspense fallback={<Spinner />} key={index}>
+            <DraggableImage image={image} setShowDropZone={setShowDropZone} />
+          </Suspense>
+        ))}
     </div>
   );
 };
