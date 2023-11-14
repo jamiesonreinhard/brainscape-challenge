@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Collection from "./components/imageCollection/Collection";
 import UserGallery from "./components/userGallery/UserGallery";
+import debounce from 'lodash/debounce';
 
 const App = () => {
   const [appHeight, setAppHeight] = useState(window.innerHeight);
@@ -8,21 +9,21 @@ const App = () => {
   const [showDropZone, setShowDropZone] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < mobileBreakpoint) {
-        setAppHeight(window.innerHeight);
-      } else {
-        // Reset to default for non-mobile screens
-        setAppHeight('auto');
+    const handleResize = debounce(() => {
+      const newHeight = window.innerWidth < mobileBreakpoint ? window.innerHeight : 'auto';
+      if (appHeight !== newHeight) {
+        setAppHeight(newHeight);
       }
-    };
+    }, 100);
 
     window.addEventListener('resize', handleResize);
-    // Set the initial height
     handleResize();
 
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    return () => {
+      handleResize.cancel(); // Cancel any pending debounces on cleanup
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [appHeight]);
 
   return (
     <div className="w-[90%] xl:max-w-[1200px] mx-auto py-[24px] sm:py-[60px] flex flex-col relative" style={{ height: appHeight }}>
