@@ -20,27 +20,12 @@ const DraggableImage = ({ image, setShowDropZone }) => {
     setShowDropZone(false);
   };
 
-  const handleTouchStart = (e) => {
-    e.preventDefault();
-  }
-
-  const handleTouchMove = (e) => {
-    e.preventDefault();
-  }
-
-  const handleTouchEnd = (e) => {
-    e.preventDefault();
-  }
-
   return (
     <div
       ref={dragRef}
-      className="group cursor-pointer relative w-[28%] sm:w-[200px] m-[1%] sm:m-0 touch-none"
+      className="group cursor-pointer relative w-[28%] sm:w-[200px] m-[1%] sm:m-0"
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
     >
       <div className="pb-[100%] w-full h-auto relative bg-gray-700">
         <img
