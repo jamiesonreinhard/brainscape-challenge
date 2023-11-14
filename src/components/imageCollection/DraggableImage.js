@@ -23,7 +23,7 @@ const DraggableImage = ({ image, setShowDropZone }) => {
   return (
     <div
       ref={dragRef}
-      className="group cursor-pointer relative w-[28%] sm:w-[200px] m-[1%] sm:m-0"
+      className="group cursor-pointer relative w-[28%] sm:w-[200px] m-[1%] sm:m-0 touch-none"
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >

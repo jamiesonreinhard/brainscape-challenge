@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DropZone from "./DropZone";
 import StoredImage from "./StoredImage";
 import { useDrop } from "react-dnd";
