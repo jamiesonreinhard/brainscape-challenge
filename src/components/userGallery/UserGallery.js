@@ -30,7 +30,7 @@ const UserGallery = ({ showDropZone }) => {
             <div className="flex flex-wrap gap-[8px] w-1/2">
               {storedImages?.map((image, index) => (
                 <StoredImage
-                  key={index}
+                  key={`${image.id}-${index}`}
                   image={image}
                   removeImage={removeImage}
                 />
