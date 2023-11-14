@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import Collection from "./components/imageCollection/Collection";
 import UserGallery from "./components/userGallery/UserGallery";
+import Toast from "./components/utility/Toast";
 import debounce from 'lodash/debounce';
 
 const App = () => {
   const [appHeight, setAppHeight] = useState(window.innerHeight);
   const mobileBreakpoint = 768;
   const [showDropZone, setShowDropZone] = useState(false);
+  const [showToast, setShowToast] = useState("");
 
   useEffect(() => {
     const handleResize = debounce(() => {
@@ -36,8 +38,9 @@ const App = () => {
         <Collection setShowDropZone={setShowDropZone} />
 
         {/* selected photos component */}
-        <UserGallery showDropZone={showDropZone} />
+        <UserGallery showDropZone={showDropZone} setShowToast={setShowToast} />
       </section>
+      {showToast && <Toast message={showToast} />}
     </div>
   );
 };
