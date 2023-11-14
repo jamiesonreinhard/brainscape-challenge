@@ -16,11 +16,8 @@ const UserGallery = ({ showDropZone, setShowToast }) => {
   const handleDrop = (item) => {
     setStoredImages((prevStoredImages) => {
       const storedImageIds = prevStoredImages.map((image) => image.id);
-      console.log(`Stored Image Ids: ${storedImageIds}`);
-      console.log(`Dropped Image Id: ${item.id}`);
       if (!storedImageIds.includes(item.id)) {
         const newStoredImages = [...prevStoredImages, item];
-        console.log(`New stored images: ${newStoredImages}`);
         sessionStorage.setItem("storedImages", JSON.stringify(newStoredImages));
         return newStoredImages;
       } else {
