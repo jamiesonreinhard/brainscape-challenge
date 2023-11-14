@@ -2,11 +2,19 @@ import { useState } from "react";
 import DropZone from "./DropZone";
 import StoredImage from "./StoredImage";
 
-const UserGallery = ({ showDropZone }) => {
+const UserGallery = ({ showDropZone, setShowToast }) => {
   const [storedImages, setStoredImages] = useState([]);
 
   const handleDrop = (droppedImage) => {
-    setStoredImages((prevImages) => [...prevImages, droppedImage]);
+    const storedImageIds = storedImages.map((image) => image.id);
+    if (!storedImageIds.includes(droppedImage.id)) {
+      setStoredImages((prevImages) => [...prevImages, droppedImage]);
+    } else {
+      setShowToast("Image already added.");
+      setTimeout(() => {
+        setShowToast(false);
+      }, 3000)
+    }
   };
 
   const removeImage = (image) => {
