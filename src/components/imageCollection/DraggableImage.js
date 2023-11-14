@@ -2,7 +2,6 @@ import draggable from "../../assets/draggable.svg";
 
 const DraggableImage = ({ image, setShowDropZone }) => {
   const handleDragStart = (e) => {
-    e.preventDefault();
     e.dataTransfer.setData("text/plain", JSON.stringify(image));
     setShowDropZone(true);
   };
@@ -29,7 +28,7 @@ const DraggableImage = ({ image, setShowDropZone }) => {
           <img
             src={draggable}
             alt="draggable icon"
-            className="absolute top-[4px] left-0 w-[32px] sm:w-[80px] touch-none"
+            className="absolute top-[4px] left-0 w-[32px] sm:w-[80px]"
           />
         </div>
       </div>
