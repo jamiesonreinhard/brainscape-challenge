@@ -55,6 +55,7 @@ const UserGallery = ({ showDropZone, setShowToast }) => {
                 <StoredImage
                   key={`${image.id}-${index}`}
                   image={image}
+                  index={index}
                   removeImage={removeImage}
                 />
               ))}
